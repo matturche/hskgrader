@@ -75,7 +75,7 @@ if __name__ == "__main__":
     )
 
     base_github_path = """
-    https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/
+    https://raw.githubusercontent.com/matturche/hskgrader/main/
     """
     text_tab, hsk_stats_tab = st.tabs(["Text analysis", "HSK stats"])
     with text_tab:
