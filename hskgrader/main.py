@@ -9,6 +9,8 @@ from helpers import (
     extand_hsk_df_with_custom_df,
     get_unique_hanzi_dataframe,
     get_hsk_version_word_differences,
+    load_github_dataframe,
+    # load_github_text_file,
     load_text_files_from_dir,
 )
 from constants import (
@@ -72,6 +74,9 @@ if __name__ == "__main__":
         """
     )
 
+    base_github_path = """
+    https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/
+    """
     text_tab, hsk_stats_tab = st.tabs(["Text analysis", "HSK stats"])
     with text_tab:
         # Load sample texts
@@ -128,11 +133,15 @@ if __name__ == "__main__":
         # Loading hsk datasets, reference is copied in another variable in case
         # the df are extanded with the custom df
         # hsk20_df = pd.read_csv("../data/new_hsk2-0.csv")
-        hsk20_df = pd.read_csv("app/static/new_hsk2-0.csv")
+        hsk20_df = load_github_dataframe(
+            f"{base_github_path}data/new_hsk2-0.csv"
+        )
         hsk20_only_df = hsk20_df
         hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
         # hsk30_df = pd.read_csv("../data/new_hsk3-0.csv")
-        hsk30_df = pd.read_csv("app/static/new_hsk3-0.csv")
+        hsk30_df = load_github_dataframe(
+            f"{base_github_path}data/new_hsk3-0.csv"
+        )
         hsk30_only_df = hsk30_df
         hsk30_unique_hanzi_df = get_unique_hanzi_dataframe(hsk30_only_df)
         hsk_word_differences_df = get_hsk_version_word_differences(
@@ -141,9 +150,13 @@ if __name__ == "__main__":
         hsk_hanzi_differences_df = get_hsk_version_word_differences(
             hsk20_unique_hanzi_df, hsk30_unique_hanzi_df
         )
-        hsk_extansion_df = pd.read_csv(
-            # "../data/hsk_dict_expansion.csv"
-            "app/static/hsk_dict_expansion.csv"
+        # hsk_extansion_df = pd.read_csv(
+        #     "../data/hsk_dict_expansion.csv"
+        # ).sort_values(
+        #     by=LEVEL_COLUMN_NAME
+        # )
+        hsk_extansion_df = load_github_dataframe(
+            f"{base_github_path}data/hsk_dict_expansion.csv"
         ).sort_values(
             by=LEVEL_COLUMN_NAME
         )

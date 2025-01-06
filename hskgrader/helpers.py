@@ -1,4 +1,6 @@
 import os
+import requests
+from io import StringIO
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -9,6 +11,24 @@ from constants import (
     LEVEL_COLUMN_NAME,
     PLT_HSK_COLORS,
 )
+
+
+def load_github_dataframe(url: str) -> pd.DataFrame:
+    response = requests.get(url)
+    if response.status_code == 200:
+        return pd.read_csv(StringIO(response.text))
+    else:
+        st.error("Failed to load data from GitHub.")
+        return pd.DataFrame()
+
+
+def load_github_text_file(url: str) -> str:
+    response = requests.get(url)
+    if response.status_code == 200:
+        return StringIO(response.text)
+    else:
+        st.error("Failed to load data from GitHub.")
+        return ""
 
 
 def load_text_files_from_dir(path: str) -> Dict[str, str]:
