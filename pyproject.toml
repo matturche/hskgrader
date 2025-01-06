@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "hskgrader"
+version = "0.1.0"
+description = "A simple tool for grading chinese texts on HSK levels"
+authors = ["Mamosa <matth.more@lilo.org>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.41.1"
+jieba = "^0.42.1"
+pandas = "^2.2.3"
+st-annotated-text = "^4.0.1"
+matplotlib = "^3.10.0"
+numpy = "^2.2.1"
+black = "^24.10.0"
+
+
+[[tool.poetry.source]]
+name = "mirrors"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
