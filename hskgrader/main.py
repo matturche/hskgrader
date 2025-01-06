@@ -76,7 +76,7 @@ if __name__ == "__main__":
     )
 
     base_github_path = """
-    https://raw.githubusercontent.com/matturche/hskgrader/main/
+    https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/hskgrader/data/
     """
     text_tab, hsk_stats_tab = st.tabs(["Text analysis", "HSK stats"])
     with text_tab:
@@ -134,8 +134,8 @@ if __name__ == "__main__":
         # the df are extanded with the custom df
         # hsk20_df = pd.read_csv("./data/new_hsk2-0.csv")
         hsk20_df = load_github_dataframe(
-            # urljoin(base_github_path, "data/new_hsk2-0.csv")
-            "https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/hskgrader/data/new_hsk2-0.csv"
+            urljoin(base_github_path, "new_hsk2-0.csv")
+            # "https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/hskgrader/data/new_hsk2-0.csv"
         )
         hsk20_only_df = hsk20_df
         hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
