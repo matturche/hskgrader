@@ -1,6 +1,7 @@
 import streamlit as st
 from annotated_text import annotated_text
 import pandas as pd
+from requests.compat import urljoin
 from typing import Dict
 
 from hsk_grader_statistics import HskGraderStatistics
@@ -134,13 +135,13 @@ if __name__ == "__main__":
         # the df are extanded with the custom df
         # hsk20_df = pd.read_csv("../data/new_hsk2-0.csv")
         hsk20_df = load_github_dataframe(
-            f"{base_github_path}data/new_hsk2-0.csv"
+            urljoin(base_github_path, "data/new_hsk2-0.csv")
         )
         hsk20_only_df = hsk20_df
         hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
         # hsk30_df = pd.read_csv("../data/new_hsk3-0.csv")
         hsk30_df = load_github_dataframe(
-            f"{base_github_path}data/new_hsk3-0.csv"
+            urljoin(base_github_path, "data/new_hsk3-0.csv")
         )
         hsk30_only_df = hsk30_df
         hsk30_unique_hanzi_df = get_unique_hanzi_dataframe(hsk30_only_df)
@@ -156,7 +157,7 @@ if __name__ == "__main__":
         #     by=LEVEL_COLUMN_NAME
         # )
         hsk_extansion_df = load_github_dataframe(
-            f"{base_github_path}data/hsk_dict_expansion.csv"
+            urljoin(base_github_path, "data/hsk_dict_expansion.csv")
         ).sort_values(
             by=LEVEL_COLUMN_NAME
         )
