@@ -15,6 +15,7 @@ from constants import (
 
 def load_github_dataframe(url: str) -> pd.DataFrame:
     response = requests.get(url)
+    st.write(response)
     if response.status_code == 200:
         return pd.read_csv(StringIO(response.text))
     else:

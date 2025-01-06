@@ -132,11 +132,11 @@ if __name__ == "__main__":
         # )
         # Loading hsk datasets, reference is copied in another variable in case
         # the df are extanded with the custom df
-        hsk20_df = pd.read_csv("./data/new_hsk2-0.csv")
-        # hsk20_df = load_github_dataframe(
-        #     # urljoin(base_github_path, "data/new_hsk2-0.csv")
-        #     "https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/data/new_hsk2-0.csv"
-        # )
+        # hsk20_df = pd.read_csv("./data/new_hsk2-0.csv")
+        hsk20_df = load_github_dataframe(
+            # urljoin(base_github_path, "data/new_hsk2-0.csv")
+            "https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/data/new_hsk2-0.csv"
+        )
         hsk20_only_df = hsk20_df
         hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
         hsk30_df = pd.read_csv("./data/new_hsk3-0.csv")
