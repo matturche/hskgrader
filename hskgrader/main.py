@@ -135,7 +135,7 @@ if __name__ == "__main__":
         # hsk20_df = pd.read_csv("./data/new_hsk2-0.csv")
         hsk20_df = load_github_dataframe(
             # urljoin(base_github_path, "data/new_hsk2-0.csv")
-            "https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/data/new_hsk2-0.csv"
+            "https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/hskgrader/data/new_hsk2-0.csv"
         )
         hsk20_only_df = hsk20_df
         hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
