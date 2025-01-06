@@ -135,15 +135,13 @@ if __name__ == "__main__":
         # hsk20_df = pd.read_csv("./data/new_hsk2-0.csv")
         hsk20_df = load_github_dataframe(
             urljoin(base_github_path, "new_hsk2-0.csv")
-            # "https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/hskgrader/data/new_hsk2-0.csv"
         )
         hsk20_only_df = hsk20_df
         hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
-        hsk30_df = pd.read_csv("./data/new_hsk3-0.csv")
-        # hsk30_df = load_github_dataframe(
-        #     # urljoin(base_github_path, "data/new_hsk3-0.csv")
-        #     "https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/data/new_hsk2-0.csv"
-        # )
+        # hsk30_df = pd.read_csv("./data/new_hsk3-0.csv")
+        hsk30_df = load_github_dataframe(
+            urljoin(base_github_path, "new_hsk3-0.csv")
+        )
         hsk30_only_df = hsk30_df
         hsk30_unique_hanzi_df = get_unique_hanzi_dataframe(hsk30_only_df)
         hsk_word_differences_df = get_hsk_version_word_differences(
@@ -152,16 +150,16 @@ if __name__ == "__main__":
         hsk_hanzi_differences_df = get_hsk_version_word_differences(
             hsk20_unique_hanzi_df, hsk30_unique_hanzi_df
         )
-        hsk_extansion_df = pd.read_csv(
-            "./data/hsk_dict_expansion.csv"
-        ).sort_values(
-            by=LEVEL_COLUMN_NAME
-        )
-        # hsk_extansion_df = load_github_dataframe(
-        #     urljoin(base_github_path, "data/hsk_dict_expansion.csv")
+        # hsk_extansion_df = pd.read_csv(
+        #     "./data/hsk_dict_expansion.csv"
         # ).sort_values(
         #     by=LEVEL_COLUMN_NAME
         # )
+        hsk_extansion_df = load_github_dataframe(
+            urljoin(base_github_path, "hsk_dict_expansion.csv")
+        ).sort_values(
+            by=LEVEL_COLUMN_NAME
+        )
         # Uncomment if you want to read the original data, although note it
         # will break the app
         # hsk20_df = pd.read_csv("../data/hsk2-0.csv")
