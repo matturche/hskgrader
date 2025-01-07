@@ -45,7 +45,8 @@ def load_github_text_files() -> Dict[str, str]:
 def load_github_text_file(url: str) -> str:
     response = requests.get(url)
     if response.status_code == 200:
-        return StringIO(response.text)
+        return response.text
+        # return StringIO(response.text)
     else:
         st.error("Failed to load data from GitHub.")
         return ""
