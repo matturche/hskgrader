@@ -1,5 +1,8 @@
 from typing import Dict, List
 
+BASE_GITHUB_PATH = """
+    https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/data/
+"""
 SIMPLIFIED_WORD_COLUMN_NAME: str = "Simplified"
 LEVEL_COLUMN_NAME: str = "Level"
 HSK_COLORBLING_COLORS: Dict[int, str] = {
@@ -45,3 +48,9 @@ HSK_LABELS: List[str] = [
     "HSK6",
     "HSK7-9",
 ]
+
+AVAILABLE_TEXTS = [
+    f"hsk5/text{i}.txt" for i in range(1, 6)
+].extend([
+    f"hsk6/text{i}.txt" for i in range(1, 12)
+])

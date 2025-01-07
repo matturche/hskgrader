@@ -1,5 +1,6 @@
 import os
 import requests
+from requests.compat import urljoin
 from io import StringIO
 import streamlit as st
 import pandas as pd
@@ -7,9 +8,11 @@ import matplotlib.pyplot as plt
 from typing import Dict, List
 
 from constants import (
-    SIMPLIFIED_WORD_COLUMN_NAME,
+    AVAILABLE_TEXTS,
+    BASE_GITHUB_PATH,
     LEVEL_COLUMN_NAME,
     PLT_HSK_COLORS,
+    SIMPLIFIED_WORD_COLUMN_NAME,
 )
 
 
@@ -21,6 +24,18 @@ def load_github_dataframe(url: str) -> pd.DataFrame:
     else:
         st.error("Failed to load data from GitHub.")
         return pd.DataFrame()
+
+
+@st.cache_data
+def load_github_text_files() -> Dict[str, str]:
+    texts = {}
+    for file in AVAILABLE_TEXTS:
+        name = f"{file.replace('/', '-')}"
+        text = load_github_text_file(
+            urljoin(BASE_GITHUB_PATH, file)
+        )
+        texts[name] = text
+    texts
 
 
 @st.cache_data

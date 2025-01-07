@@ -12,10 +12,11 @@ from helpers import (
     get_unique_hanzi_dataframe,
     get_hsk_version_word_differences,
     load_github_dataframe,
-    # load_github_text_file,
+    load_github_text_files,
     load_text_files_from_dir,
 )
 from constants import (
+    BASE_GITHUB_PATH,
     LEVEL_COLUMN_NAME,
 )
 
@@ -30,9 +31,6 @@ if __name__ == "__main__":
         help="Running localy, defaults to False",
     )
     args = parser.parse_args()
-    base_github_path = """
-    https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/data/
-    """
 
     st.title("WELCOME TO HSK GRADER :snake:")
 
@@ -92,54 +90,59 @@ if __name__ == "__main__":
     text_tab, hsk_stats_tab = st.tabs(["Text analysis", "HSK stats"])
     with text_tab:
         if args.local:
+            local_data_path = "../data/"
             # Load sample texts
-            hsk_texts_folder_path = "./data/texts/"
+            hsk_texts_folder_path = f"{local_data_path}texts/"
             hsk_sample_texts: Dict[str, str] = load_text_files_from_dir(
                 hsk_texts_folder_path
             )
             text_names = list(hsk_sample_texts.keys())
             text_names.sort()
-            selected_text = st.selectbox(
-                "You can pick a sample text to analyze",
-                text_names,
-                index=None,
-                placeholder="No text selected",
-                help="""
-                All texts are from HSK2.0 **mock tests** or from the **Standard
-                Course Workbooks** (edited by the Hanban)
-                """,
-            )
-            selected_text = "" if selected_text is None else hsk_sample_texts[
-                selected_text
-            ]
+
             # Loading hsk datasets, reference is copied in another variable in
             # case the df are extanded with the custom df
-            hsk20_df = pd.read_csv("./data/new_hsk2-0.csv")
-            hsk30_df = pd.read_csv("./data/new_hsk3-0.csv")
+            hsk20_df = pd.read_csv(f"{local_data_path}new_hsk2-0.csv")
+            hsk30_df = pd.read_csv(f"{local_data_path}new_hsk3-0.csv")
             # Uncomment if you want to read the original data, although note it
             # will break the app
             # hsk20_df = pd.read_csv("../data/hsk2-0.csv")
             # hsk30_df = pd.read_csv("../data/hsk3-0.csv")
             hsk_extansion_df = pd.read_csv(
-                "./data/hsk_dict_expansion.csv"
+                f"{local_data_path}hsk_dict_expansion.csv"
             ).sort_values(
                 by=LEVEL_COLUMN_NAME
             )
         # Load datasets from the github repository
         else:
-            selected_text = ""
+            # Load sample texts
+            hsk_sample_texts: Dict[str, str] = load_github_text_files()
+            text_names = list(hsk_sample_texts.keys())
+            text_names.sort()
             hsk20_df = load_github_dataframe(
-                urljoin(base_github_path, "new_hsk2-0.csv")
+                urljoin(BASE_GITHUB_PATH, "new_hsk2-0.csv")
             )
             hsk30_df = load_github_dataframe(
-                urljoin(base_github_path, "new_hsk3-0.csv")
+                urljoin(BASE_GITHUB_PATH, "new_hsk3-0.csv")
             )
             hsk_extansion_df = load_github_dataframe(
-                urljoin(base_github_path, "hsk_dict_expansion.csv")
+                urljoin(BASE_GITHUB_PATH, "hsk_dict_expansion.csv")
             ).sort_values(
                 by=LEVEL_COLUMN_NAME
             )
 
+        selected_text = st.selectbox(
+            "You can pick a sample text to analyze",
+            text_names,
+            index=None,
+            placeholder="No text selected",
+            help="""
+            All texts are from HSK2.0 **mock tests** or from the **Standard
+            Course Workbooks** (edited by the Hanban)
+            """,
+        )
+        selected_text = "" if selected_text is None else hsk_sample_texts[
+            selected_text
+        ]
         hsk20_only_df = hsk20_df
         hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
         hsk30_only_df = hsk30_df
