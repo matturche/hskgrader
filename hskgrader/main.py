@@ -30,6 +30,9 @@ if __name__ == "__main__":
         help="Running localy, defaults to False",
     )
     args = parser.parse_args()
+    base_github_path = """
+    https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/data/
+    """
 
     st.title("WELCOME TO HSK GRADER :snake:")
 
@@ -86,9 +89,6 @@ if __name__ == "__main__":
         """
     )
 
-    base_github_path = """
-    https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/hskgrader/data/
-    """
     text_tab, hsk_stats_tab = st.tabs(["Text analysis", "HSK stats"])
     with text_tab:
         if args.local:
