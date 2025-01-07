@@ -29,10 +29,10 @@ def load_github_dataframe(url: str) -> pd.DataFrame:
 def load_github_text_files() -> Dict[str, str]:
     files = []
     texts = {}
-    for key, value in AVAILABLE_TEXTS:
+    for key, value in AVAILABLE_TEXTS.items():
         for i in range(1, value + 1):
             files.append(f"{key}/text{i}.txt")
-    for file in AVAILABLE_TEXTS:
+    for file in files:
         name = f"{file.replace('/', '-')}"
         text = load_github_text_file(
             urljoin(BASE_GITHUB_PATH, file)
