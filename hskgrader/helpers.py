@@ -38,16 +38,14 @@ def load_github_text_files() -> Dict[str, str]:
             urljoin(BASE_GITHUB_PATH, f"texts/{file}")
         )
         texts[name] = text
-    texts
+    return texts
 
 
 @st.cache_data
 def load_github_text_file(url: str) -> str:
     response = requests.get(url)
     if response.status_code == 200:
-        st.write(response.text)
         return response.text
-        # return StringIO(response.text)
     else:
         st.error("Failed to load data from GitHub.")
         return ""
