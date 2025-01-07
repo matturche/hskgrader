@@ -35,7 +35,7 @@ def load_github_text_files() -> Dict[str, str]:
     for file in files:
         name = f"{file.replace('/', '-')}"
         text = load_github_text_file(
-            urljoin(BASE_GITHUB_PATH, file)
+            urljoin(BASE_GITHUB_PATH, "texts/", file)
         )
         texts[name] = text
     texts
