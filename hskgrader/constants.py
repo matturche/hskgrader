@@ -3,6 +3,8 @@ from typing import Dict, List
 BASE_GITHUB_PATH = """
     https://raw.githubusercontent.com/matturche/hskgrader/refs/heads/main/data/
 """
+# 5 days before reloading the csvs
+DATAFRAMES_TTL = 432000
 SIMPLIFIED_WORD_COLUMN_NAME: str = "Simplified"
 LEVEL_COLUMN_NAME: str = "Level"
 HSK_COLORBLING_COLORS: Dict[int, str] = {

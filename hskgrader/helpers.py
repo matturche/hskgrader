@@ -10,13 +10,14 @@ from typing import Dict, List
 from constants import (
     AVAILABLE_TEXTS,
     BASE_GITHUB_PATH,
+    DATAFRAMES_TTL,
     LEVEL_COLUMN_NAME,
     PLT_HSK_COLORS,
     SIMPLIFIED_WORD_COLUMN_NAME,
 )
 
 
-@st.cache_data
+@st.cache_data(ttl=DATAFRAMES_TTL)
 def load_github_dataframe(url: str) -> pd.DataFrame:
     response = requests.get(url)
     if response.status_code == 200:

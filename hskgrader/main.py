@@ -233,9 +233,9 @@ if __name__ == "__main__":
                     st.subheader("HSK3.0:")
                     annotated_text(hsk30_statistics.annotated_text)
             with word_count_tab:
-                st.subheader("HSK2.0")
+                st.subheader(f"HSK2.0 ({hsk20_statistics.total_words} words)")
                 hsk20_statistics.draw_word_counts_chart(as_bars=chart_choice)
-                st.subheader("HSK3.0")
+                st.subheader(f"HSK3.0 ({hsk30_statistics.total_words} words)")
                 hsk30_statistics.draw_word_counts_chart(as_bars=chart_choice)
     with hsk_stats_tab:
         st.subheader("HSK2.0")
@@ -244,7 +244,7 @@ if __name__ == "__main__":
         st.subheader("HSK3.0")
         draw_number_of_words_per_hsk_level(hsk30_only_df)
         st.divider()
-        st.subheader("Custom vocabulary")
+        st.subheader(f"Custom vocabulary ({len(hsk_extansion_df)} words)")
         draw_number_of_words_per_hsk_level(hsk_extansion_df, with_hsk7=False)
         st.divider()
         st.subheader("Reflections on word counts")

@@ -6,18 +6,24 @@ It is a small app to analyze Chinese texts using the Hànyǔ Shuǐpǐng Kǎoshì
 
 Note that the author(s) of this tool are not affiliated in any way with the Hanban/Confucius Institute Headquarters, responsible for all things related to the HSK.
 
-It is written in python using [streamlit](https://streamlit.io/).
+It is written in python using [Streamlit](https://streamlit.io/).
+
+The app is deployed on the Streamlit Community Cloud, and is available at [hskgrader.streamlit.app](https://hskgrader.streamlit.app/).
 
 ## Sources
 
-[Jieba](https://github.com/fxsjy/jieba/tree/master) is used as the segmented tool for Chinese texts.
+[Jieba](https://github.com/fxsjy/jieba/tree/master) is used as the segmentation tool for Chinese texts.
+
 HSK2.0 and HSK3.0 lists were found on Github [here](https://github.com/ynot4/hsk-vocabulary/tree/master), and [there](https://github.com/ivankra/hsk30/tree/master) respectively.
+
 Sample texts are from the [Standard Course](https://www.hskstandardcourse.com/) Workbooks or mock tests, edited by the Hanban.
 
 ## How to install the app and run it locally
 
 You will need to know what a terminal is and how to use it.
+
 It was written using Python3, so if you don't have it installed on your computer you can go [here](https://realpython.com/installing-python/).
+
 It uses [Poetry](https://python-poetry.org/) to manage python packages and environments, once you have [installed Poetry](https://python-poetry.org/docs/#installation) you can run the following command:
 
 ```
@@ -39,7 +45,7 @@ From then you can start the environment:
 poetry shell
 ```
 
-And finally run the app in the terminal:
+And finally run the app in the terminal, from the second `hskgrader` directory (where the `main.py` script is located):
 
 ```
 streamlit run main.py -- --local 
