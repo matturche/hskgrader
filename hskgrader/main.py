@@ -2,6 +2,7 @@ import streamlit as st
 from annotated_text import annotated_text
 import pandas as pd
 from requests.compat import urljoin
+import argparse
 from typing import Dict
 
 from hsk_grader_statistics import HskGraderStatistics
@@ -18,9 +19,18 @@ from constants import (
     LEVEL_COLUMN_NAME,
 )
 
-IS_ONLINE = True
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-l",
+        "--local",
+        default=False,
+        action="store_true",
+        help="Running localy, defaults to False",
+    )
+    args = parser.parse_args()
+
     st.title("WELCOME TO HSK GRADER :snake:")
 
     st.subheader("What is it?")
@@ -81,17 +91,14 @@ if __name__ == "__main__":
     """
     text_tab, hsk_stats_tab = st.tabs(["Text analysis", "HSK stats"])
     with text_tab:
-        # Load sample texts
-        hsk_texts_folder_path = "./data/texts/"
-        hsk_sample_texts: Dict[str, str] = load_text_files_from_dir(
-            hsk_texts_folder_path
-        )
-        text_names = list(hsk_sample_texts.keys())
-        text_names.sort()
-
-        if IS_ONLINE:
-            selected_text = ""
-        else:
+        if args.local:
+            # Load sample texts
+            hsk_texts_folder_path = "./data/texts/"
+            hsk_sample_texts: Dict[str, str] = load_text_files_from_dir(
+                hsk_texts_folder_path
+            )
+            text_names = list(hsk_sample_texts.keys())
+            text_names.sort()
             selected_text = st.selectbox(
                 "You can pick a sample text to analyze",
                 text_names,
@@ -105,6 +112,44 @@ if __name__ == "__main__":
             selected_text = "" if selected_text is None else hsk_sample_texts[
                 selected_text
             ]
+            # Loading hsk datasets, reference is copied in another variable in
+            # case the df are extanded with the custom df
+            hsk20_df = pd.read_csv("./data/new_hsk2-0.csv")
+            hsk30_df = pd.read_csv("./data/new_hsk3-0.csv")
+            # Uncomment if you want to read the original data, although note it
+            # will break the app
+            # hsk20_df = pd.read_csv("../data/hsk2-0.csv")
+            # hsk30_df = pd.read_csv("../data/hsk3-0.csv")
+            hsk_extansion_df = pd.read_csv(
+                "./data/hsk_dict_expansion.csv"
+            ).sort_values(
+                by=LEVEL_COLUMN_NAME
+            )
+        # Load datasets from the github repository
+        else:
+            selected_text = ""
+            hsk20_df = load_github_dataframe(
+                urljoin(base_github_path, "new_hsk2-0.csv")
+            )
+            hsk30_df = load_github_dataframe(
+                urljoin(base_github_path, "new_hsk3-0.csv")
+            )
+            hsk_extansion_df = load_github_dataframe(
+                urljoin(base_github_path, "hsk_dict_expansion.csv")
+            ).sort_values(
+                by=LEVEL_COLUMN_NAME
+            )
+
+        hsk20_only_df = hsk20_df
+        hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
+        hsk30_only_df = hsk30_df
+        hsk30_unique_hanzi_df = get_unique_hanzi_dataframe(hsk30_only_df)
+        hsk_word_differences_df = get_hsk_version_word_differences(
+            hsk20_only_df, hsk30_only_df
+        )
+        hsk_hanzi_differences_df = get_hsk_version_word_differences(
+            hsk20_unique_hanzi_df, hsk30_unique_hanzi_df
+        )
 
         txt = st.text_area(
             "Text to analyze:",
@@ -137,45 +182,6 @@ if __name__ == "__main__":
         #     value=True,
         #     help="Otherwise as pies"
         # )
-
-        # Loading hsk datasets, reference is copied in another variable in case
-        # the df are extanded with the custom df
-        # TODO Actually have a config command to run locally or online
-        if IS_ONLINE:
-            hsk20_df = load_github_dataframe(
-                urljoin(base_github_path, "new_hsk2-0.csv")
-            )
-            hsk30_df = load_github_dataframe(
-                urljoin(base_github_path, "new_hsk3-0.csv")
-            )
-            hsk_extansion_df = load_github_dataframe(
-                urljoin(base_github_path, "hsk_dict_expansion.csv")
-            ).sort_values(
-                by=LEVEL_COLUMN_NAME
-            )
-        else:
-            hsk20_df = pd.read_csv("./data/new_hsk2-0.csv")
-            hsk30_df = pd.read_csv("./data/new_hsk3-0.csv")
-            # Uncomment if you want to read the original data, although note it
-            # will break the app
-            # hsk20_df = pd.read_csv("../data/hsk2-0.csv")
-            # hsk30_df = pd.read_csv("../data/hsk3-0.csv")
-            hsk_extansion_df = pd.read_csv(
-                "./data/hsk_dict_expansion.csv"
-            ).sort_values(
-                by=LEVEL_COLUMN_NAME
-            )
-
-        hsk20_only_df = hsk20_df
-        hsk20_unique_hanzi_df = get_unique_hanzi_dataframe(hsk20_only_df)
-        hsk30_only_df = hsk30_df
-        hsk30_unique_hanzi_df = get_unique_hanzi_dataframe(hsk30_only_df)
-        hsk_word_differences_df = get_hsk_version_word_differences(
-            hsk20_only_df, hsk30_only_df
-        )
-        hsk_hanzi_differences_df = get_hsk_version_word_differences(
-            hsk20_unique_hanzi_df, hsk30_unique_hanzi_df
-        )
 
         if use_custom_epansion_dictionary:
             hsk20_df = extand_hsk_df_with_custom_df(hsk20_df, hsk_extansion_df)

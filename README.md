@@ -33,18 +33,18 @@ poetry shell
 And finally run the app in the terminal:
 
 ```
-streamlit run main.py
+streamlit run main.py -- --local 
 ```
 
 It should automatically open a new window on `"http://localhost:8501/"`, if not you can copy the address and paste it in your browser.
-You can stop it by pressing `Ctrl-C` in your terminal, and exit poetry's environment by entering `exit`.
+You can stop it by pressing `Ctrl-c` in your terminal, and exit poetry's environment by entering `exit`.
 
 ## Notes on usage
 
 The HSK2.0 and HSK3.0 vocabulary entries are NOT complete by any means, and this is made relatively clear when using this app.
 Many words are "missing", and thus the app resorts to two workarounds to make it work:
 
-1. Decomposing words into subwords if no match is found (i.e. a word in the format ABCD will result in [A, AB, ABC, B, BC, BCD, C, CD, D]),
+1. Breaking words down into subwords if no match is found (i.e. a word in the format ABCD will result in [A, AB, ABC, B, BC, BCD, C, CD, D]),
 the resulting score being the highest level matched on any of the subcombination. It is not a perfect method, but it proves to be a very
 good and simple heuristic to enhance matches.
 

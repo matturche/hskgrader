@@ -13,6 +13,7 @@ from constants import (
 )
 
 
+@st.cache_data
 def load_github_dataframe(url: str) -> pd.DataFrame:
     response = requests.get(url)
     if response.status_code == 200:
@@ -22,6 +23,7 @@ def load_github_dataframe(url: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 
+@st.cache_data
 def load_github_text_file(url: str) -> str:
     response = requests.get(url)
     if response.status_code == 200:
@@ -31,6 +33,7 @@ def load_github_text_file(url: str) -> str:
         return ""
 
 
+@st.cache_data
 def load_text_files_from_dir(path: str) -> Dict[str, str]:
     text_dict = {}
     for root, _, files in os.walk(path):
@@ -47,6 +50,7 @@ def character_is_hanzi(text: str) -> bool:
     return "\u4E00" <= text[0] <= "\u9FFF"
 
 
+@st.cache_data
 def extand_hsk_df_with_custom_df(
     hsk_df: pd.DataFrame, custom_df: pd.DataFrame
 ) -> pd.DataFrame:
@@ -70,6 +74,7 @@ def get_hanzi_sub_combinations(word: str) -> List[str]:
     return sub_combinations
 
 
+@st.cache_data
 def draw_number_of_words_per_hsk_level(
     df: pd.DataFrame, with_hsk7: bool = True
 ):
@@ -106,6 +111,7 @@ def draw_number_of_words_per_hsk_level(
             )
 
 
+@st.cache_data
 def get_hsk_version_word_differences(
     hsk20_df: pd.DataFrame, hsk30_df: pd.DataFrame
 ) -> pd.DataFrame:
@@ -123,6 +129,7 @@ def get_hsk_version_word_differences(
     return concat_df.sort_values(by=LEVEL_COLUMN_NAME)
 
 
+@st.cache_data
 def get_unique_hanzi_dataframe(hsk_df: pd.DataFrame) -> pd.DataFrame:
     unique_hanzis = {col: [] for col in list(hsk_df)}
     for _, row in hsk_df.iterrows():
@@ -140,6 +147,7 @@ def get_unique_hanzi_dataframe(hsk_df: pd.DataFrame) -> pd.DataFrame:
     return unique_hanzis
 
 
+@st.cache_data
 def reformat_hsk_dfs_and_extend_hsk20_with_level_7(
     hsk20_df: pd.DataFrame, hsk30_df: pd.DataFrame
 ):
