@@ -116,7 +116,9 @@ if __name__ == "__main__":
         else:
             # Load sample texts
             hsk_sample_texts: Dict[str, str] = load_github_text_files()
-            text_names = list(hsk_sample_texts.keys())
+            text_names = list(
+                hsk_sample_texts.keys()
+            ) if hsk_sample_texts is not None else []
             text_names.sort()
             hsk20_df = load_github_dataframe(
                 urljoin(BASE_GITHUB_PATH, "new_hsk2-0.csv")
