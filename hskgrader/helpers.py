@@ -26,7 +26,6 @@ def load_github_dataframe(url: str) -> pd.DataFrame:
         return pd.DataFrame()
 
 
-@st.cache_data
 def load_github_text_files() -> Dict[str, str]:
     texts = {}
     for file in AVAILABLE_TEXTS:
