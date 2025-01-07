@@ -49,8 +49,7 @@ HSK_LABELS: List[str] = [
     "HSK7-9",
 ]
 
-AVAILABLE_TEXTS = [
-    f"hsk5/text{i}.txt" for i in range(1, 6)
-].extend([
-    f"hsk6/text{i}.txt" for i in range(1, 12)
-])
+AVAILABLE_TEXTS: Dict[str, int] = {
+    "hsk5": 5,
+    "hsk6": 11,
+}

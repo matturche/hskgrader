@@ -24,6 +24,15 @@ It uses [Poetry](https://python-poetry.org/) to manage python packages and envir
 poetry install
 ```
 
+If you are not in China, then you will find useful to just delete the following lines in the `pyproject.toml` file:
+
+```
+[[tool.poetry.source]]
+name = "mirrors"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+priority = "primary"
+```
+ 
 From then you can start the environment:
 
 ```
