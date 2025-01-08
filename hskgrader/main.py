@@ -32,6 +32,11 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    st.set_page_config(
+        page_title="HSK Grader",
+        page_icon=":dragon_face:",
+    )
+
     st.title("WELCOME TO HSK GRADER :snake:")
 
     st.subheader("What is it?")
@@ -87,7 +92,9 @@ if __name__ == "__main__":
         """
     )
 
-    text_tab, hsk_stats_tab = st.tabs(["Text analysis", "HSK stats"])
+    text_tab, interpet_tab, hsk_stats_tab = st.tabs([
+        "Text analysis", "How to interpret results", "HSK stats"
+    ])
     with text_tab:
         if args.local:
             local_data_path = "../data/"
@@ -237,6 +244,62 @@ if __name__ == "__main__":
                 hsk20_statistics.draw_word_counts_chart(as_bars=chart_choice)
                 st.subheader(f"HSK3.0 ({hsk30_statistics.total_words} words)")
                 hsk30_statistics.draw_word_counts_chart(as_bars=chart_choice)
+    with interpet_tab:
+        st.subheader("How to interpret readability?")
+        st.markdown(
+            """
+            HSK Grader's main objective is to give HSK levels at which a text
+            is most likely readable. When giving a HSK level for a given
+            readability threshold, it means that if you passed, or studied all
+            the vocabulary for this level, then you should be able to read the
+            text with this threshold.
+
+            For example, if the text is graded as having a readability of 80%
+            at HSK5, you need to have mastered HSK5 content.
+            """
+        )
+        st.subheader(
+            """
+            The app is showing 80/95/98% readability at a level higher than I should be but I can still read the text fine, why?
+            """
+        )
+        st.markdown(
+            """
+            Between theoretical readability and actual readability
+            exists a difference, specific to every individual. The grade
+            given here is conservative, because there might be some undetected
+            words, and it also takes HSK levels at face value. But in reality,
+            the vocabulary people learn is influenced by factors outside of
+            just HSK levels, including but not limited to: nationality, center
+            of interests, exposure to the language, specific needs...
+
+            Sometimes, a text might have few complicated words, but appearing
+            often, raising the difficulty of the text only on a surface level.
+
+            Thus the difference between 80%, 95% and 98% might be more blurry
+            if you are already familiar with the text's context, or have
+            already studied its topic previously.
+            """
+        )
+        st.subheader(
+            """
+            The app is showing 80/95/98% readability at HSK7-9 but the actual score is lower, why?
+            """
+        )
+        st.markdown(
+            """
+            HSK7-9 is the default maximum rating for each thresholds, because
+            if you got to HSK7-9, then you should have no problem whatsoever
+            in reading most texts. We could say that most of them
+            have a readability of 100% at this level.
+
+            The reason as to why it is not true with the app grading is simply
+            because HSK entries are limited, and do not reflect completely the
+            actual number of words one can read when reaching given levels,
+            this is why HSK Grader is using a custom dictionnary. As it is
+            expanded, the accuracy of grading will improve.
+            """
+        )
     with hsk_stats_tab:
         st.subheader("HSK2.0")
         draw_number_of_words_per_hsk_level(hsk20_only_df)
