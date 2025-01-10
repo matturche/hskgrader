@@ -92,8 +92,11 @@ if __name__ == "__main__":
         """
     )
 
-    text_tab, interpet_tab, hsk_stats_tab = st.tabs([
-        "Text analysis", "How to interpret results", "HSK stats"
+    text_tab, interpet_tab, hsk_stats_tab, vocab_lists_tab = st.tabs([
+        "Text analysis",
+        "How to interpret results",
+        "HSK stats",
+        "Vocabulary lists",
     ])
     with text_tab:
         if args.local:
@@ -356,12 +359,18 @@ if __name__ == "__main__":
             ),
             with_hsk7=False,
         )
+    with vocab_lists_tab:
+        st.subheader("HSK2.0 vocabulary")
+        st.dataframe(hsk20_only_df.set_index(LEVEL_COLUMN_NAME), width=600)
+        st.subheader("HSK3.0 vocabulary")
+        st.dataframe(hsk30_only_df.set_index(LEVEL_COLUMN_NAME), width=600)
+        st.subheader(f"Custom vocabulary ({len(hsk_extansion_df)} words)")
+        st.dataframe(hsk_extansion_df.set_index(LEVEL_COLUMN_NAME), width=600)
         st.divider()
         st.subheader(f"HSK2.0 unique hanzi list ({
                      len(hsk20_unique_hanzi_df)} hanzi)")
         st.dataframe(hsk20_unique_hanzi_df.set_index(
             LEVEL_COLUMN_NAME), width=600)
-        st.divider()
         st.subheader(f"HSK3.0 unique hanzi list ({
                      len(hsk30_unique_hanzi_df)} hanzi)")
         st.dataframe(hsk30_unique_hanzi_df.set_index(
@@ -373,17 +382,9 @@ if __name__ == "__main__":
         )
         st.dataframe(hsk_word_differences_df.set_index(
             LEVEL_COLUMN_NAME), width=600)
-        st.divider()
         st.subheader(
             f"HSK3.0 and HSK2.0 unique hanzi list ({len(
                 hsk_hanzi_differences_df)} hanzi)"
         )
         st.dataframe(hsk_hanzi_differences_df.set_index(
             LEVEL_COLUMN_NAME), width=600)
-        st.divider()
-        st.subheader("HSK2.0 vocabulary")
-        st.dataframe(hsk20_only_df.set_index(LEVEL_COLUMN_NAME), width=600)
-        st.subheader("HSK3.0 vocabulary")
-        st.dataframe(hsk30_only_df.set_index(LEVEL_COLUMN_NAME), width=600)
-        st.subheader(f"Custom vocabulary ({len(hsk_extansion_df)} words)")
-        st.dataframe(hsk_extansion_df.set_index(LEVEL_COLUMN_NAME), width=600)
