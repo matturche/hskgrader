@@ -273,6 +273,28 @@ if __name__ == "__main__":
             at HSK5, you need to have mastered HSK5 content.
             """
         )
+        st.subheader("What are 'intensive' and 'extensive' reading?")
+        st.markdown(
+            """
+            Intensive reading sits at around 80% readability, and is generally
+            what you would expect from texts at a learner's level that they
+            would study in class. These texts are usually accompanied by a
+            vocabulary list so that learners can read the text without too much
+            trouble.
+
+            If a learner were to read a text like this outside of textbook, it
+            means they will probably be fine but will have to check every now
+            and then a dictionary and may find it exhausting after a short
+            period.
+
+            This is why extensive reading is recommended for leisure reading,
+            it sits at the right balance between known and unknown words. It
+            allows learners to be able to guess from context some words'
+            meaning without having to check a dictionary, although in Chinese
+            it is a little different, as when you don't recognize a hanzi you
+            still have to check it in a dictionary either way.
+            """
+        )
         st.subheader(
             """
             The app is showing 80/95/98% readability at a level higher than I should be but I can still read the text fine, why?
