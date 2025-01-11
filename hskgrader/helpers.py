@@ -65,8 +65,15 @@ def load_text_files_from_dir(path: str) -> Dict[str, str]:
     return text_dict
 
 
-def character_is_hanzi(text: str) -> bool:
-    return "\u4E00" <= text[0] <= "\u9FFF"
+def character_is_hanzi(character: str) -> bool:
+    return "\u4E00" <= character[0] <= "\u9FFF"
+
+
+def text_contains_hanzi(text: str) -> bool:
+    for character in text:
+        if character_is_hanzi(character):
+            return True
+    return False
 
 
 @st.cache_data

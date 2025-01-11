@@ -147,7 +147,8 @@ class HskGraderStatistics:
     ) -> int:
         # The default word level is 0, and is the value returned when the word
         # is not find within the HSK dataframe
-        word_level = 0
+        default_word_level_value = 0
+        word_level = default_word_level_value
         words = self.hsk_df[self.hsk_df[SIMPLIFIED_WORD_COLUMN_NAME] == word]
         if len(words) > 0:
             word_level = words.iloc[0][LEVEL_COLUMN_NAME]
@@ -163,13 +164,41 @@ class HskGraderStatistics:
         # words like 野兔 because both hanzi
         # are learnt as part of bigger words, it could also recognize falsy a
         # complicated word as HSK1 because of
-        # it being negated. The best would be to have a custom dictionary that
-        # enhances the HSK entries but it is
-        # enough for our current usage.
-        if use_word_sub_combinations and word_level == 0 and len(word) > 1:
+        # it being negated.
+        if (
+            use_word_sub_combinations
+            and word_level == default_word_level_value
+            and len(word) > 1
+        ):
+            w_levels: List[int] = []
+            # Words of 4 hanzi tend to be combinations of 2-2
+            # So we check for them individually
+            if len(word) == 4:
+                first_group = word[:2]
+                second_group = word[2:]
+                first_group_level = self._get_word_level_from_hsk_df(
+                    first_group,
+                    False,
+                )
+                second_group_level = self._get_word_level_from_hsk_df(
+                    second_group,
+                    False,
+                )
+                if (
+                    first_group_level > default_word_level_value
+                    and second_group_level > default_word_level_value
+                ):
+                    # Early return because both groups have a match
+                    return max(first_group_level, second_group_level)
+                elif first_group_level > default_word_level_value:
+                    w_levels.append(first_group_level)
+                    word = second_group
+                elif second_group_level > default_word_level_value:
+                    w_levels.append(second_group_level)
+                    word = first_group
             seg_list = get_hanzi_sub_combinations(word)
-            w_levels = [self._get_word_level_from_hsk_df(
-                w, False) for w in seg_list]
+            w_levels.extend([self._get_word_level_from_hsk_df(
+                w, False) for w in seg_list])
             word_level = max(w_levels)
         return word_level
 

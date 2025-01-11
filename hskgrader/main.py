@@ -14,6 +14,7 @@ from helpers import (
     load_github_dataframe,
     load_github_text_files,
     load_text_files_from_dir,
+    text_contains_hanzi,
 )
 from constants import (
     BASE_GITHUB_PATH,
@@ -206,47 +207,58 @@ if __name__ == "__main__":
         hsk30_statistics = HskGraderStatistics(hsk30_df)
 
         if st.button("Analyze", type="primary"):
+            if text_contains_hanzi(txt):
+                hsk30_statistics.analyze_text(txt, use_word_sub_combinations)
+                hsk20_statistics.analyze_text(txt, use_word_sub_combinations)
 
-            hsk30_statistics.analyze_text(txt, use_word_sub_combinations)
-            hsk20_statistics.analyze_text(txt, use_word_sub_combinations)
-
-            readability_tab, annot_tab, word_count_tab = st.tabs(
-                [
-                    "Readability",
-                    "Annotated text",
-                    "Word counts",
-                ]
-            )
-
-            with readability_tab:
-                st.subheader("HSK2.0")
-                hsk20_statistics.draw_readability_thresholds()
-                hsk20_statistics.draw_readability_bar_plot()
-                st.subheader("HSK3.0")
-                hsk30_statistics.draw_readability_thresholds()
-                hsk30_statistics.draw_readability_bar_plot()
-            with annot_tab:
-                hsk20_tab, hsk30_tab, both_tab = st.tabs(
+                readability_tab, annot_tab, word_count_tab = st.tabs(
                     [
-                        "HSK2.0 annotated text",
-                        "HSK3.0 annotated text",
-                        "Both texts",
+                        "Readability",
+                        "Annotated text",
+                        "Word counts",
                     ]
                 )
-                with hsk20_tab:
-                    annotated_text(hsk20_statistics.annotated_text)
-                with hsk30_tab:
-                    annotated_text(hsk30_statistics.annotated_text)
-                with both_tab:
-                    st.subheader("HSK2.0:")
-                    annotated_text(hsk20_statistics.annotated_text)
-                    st.subheader("HSK3.0:")
-                    annotated_text(hsk30_statistics.annotated_text)
-            with word_count_tab:
-                st.subheader(f"HSK2.0 ({hsk20_statistics.total_words} words)")
-                hsk20_statistics.draw_word_counts_chart(as_bars=chart_choice)
-                st.subheader(f"HSK3.0 ({hsk30_statistics.total_words} words)")
-                hsk30_statistics.draw_word_counts_chart(as_bars=chart_choice)
+
+                with readability_tab:
+                    st.subheader("HSK2.0")
+                    hsk20_statistics.draw_readability_thresholds()
+                    hsk20_statistics.draw_readability_bar_plot()
+                    st.subheader("HSK3.0")
+                    hsk30_statistics.draw_readability_thresholds()
+                    hsk30_statistics.draw_readability_bar_plot()
+                with annot_tab:
+                    hsk20_tab, hsk30_tab, both_tab = st.tabs(
+                        [
+                            "HSK2.0 annotated text",
+                            "HSK3.0 annotated text",
+                            "Both texts",
+                        ]
+                    )
+                    with hsk20_tab:
+                        annotated_text(hsk20_statistics.annotated_text)
+                    with hsk30_tab:
+                        annotated_text(hsk30_statistics.annotated_text)
+                    with both_tab:
+                        st.subheader("HSK2.0:")
+                        annotated_text(hsk20_statistics.annotated_text)
+                        st.subheader("HSK3.0:")
+                        annotated_text(hsk30_statistics.annotated_text)
+                with word_count_tab:
+                    st.subheader(
+                        f"HSK2.0 ({hsk20_statistics.total_words} words)")
+                    hsk20_statistics.draw_word_counts_chart(
+                        as_bars=chart_choice)
+                    st.subheader(
+                        f"HSK3.0 ({hsk30_statistics.total_words} words)")
+                    hsk30_statistics.draw_word_counts_chart(
+                        as_bars=chart_choice)
+            else:
+                st.error(
+                    """
+                    Your text doesn't contain any hanzi, there is nothing to
+                    analyze.
+                    """
+                )
     with interpet_tab:
         st.subheader("How to interpret readability?")
         st.markdown(
