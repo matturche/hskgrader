@@ -441,30 +441,89 @@ if __name__ == "__main__":
         )
     with vocab_lists_tab:
         st.subheader("HSK2.0 vocabulary")
-        st.dataframe(hsk20_only_df.set_index(LEVEL_COLUMN_NAME), width=600)
+        st.dataframe(
+            hsk20_only_df.set_index([
+                pd.Index(
+                    [i+1 for i in range(len(hsk20_only_df))],
+                    name="Index",
+                ),
+                LEVEL_COLUMN_NAME
+            ]),
+            width=600,
+        )
         st.subheader("HSK3.0 vocabulary")
-        st.dataframe(hsk30_only_df.set_index(LEVEL_COLUMN_NAME), width=600)
+        st.dataframe(
+            hsk30_only_df.set_index([
+                pd.Index(
+                    [i+1 for i in range(len(hsk30_only_df))],
+                    name="Index",
+                ),
+                LEVEL_COLUMN_NAME
+            ]),
+            width=600
+        )
         st.subheader(f"Custom vocabulary ({len(hsk_extansion_df)} words)")
-        st.dataframe(hsk_extansion_df.set_index(LEVEL_COLUMN_NAME), width=600)
+        st.dataframe(
+            hsk_extansion_df.set_index([
+                pd.Index(
+                    [i+1 for i in range(len(hsk_extansion_df))],
+                    name="Index",
+                ),
+                LEVEL_COLUMN_NAME
+            ]),
+            width=600
+        )
         st.divider()
         st.subheader(f"HSK2.0 unique hanzi list ({
                      len(hsk20_unique_hanzi_df)} hanzi)")
-        st.dataframe(hsk20_unique_hanzi_df.set_index(
-            LEVEL_COLUMN_NAME), width=600)
+        st.dataframe(
+            hsk20_unique_hanzi_df.set_index([
+                pd.Index(
+                    [i+1 for i in range(len(hsk20_unique_hanzi_df))],
+                    name="Index",
+                ),
+                LEVEL_COLUMN_NAME
+            ]),
+            width=600
+        )
         st.subheader(f"HSK3.0 unique hanzi list ({
                      len(hsk30_unique_hanzi_df)} hanzi)")
-        st.dataframe(hsk30_unique_hanzi_df.set_index(
-            LEVEL_COLUMN_NAME), width=600)
+        st.dataframe(
+            hsk30_unique_hanzi_df.set_index([
+                pd.Index(
+                    [i+1 for i in range(len(hsk30_unique_hanzi_df))],
+                    name="Index",
+                ),
+                LEVEL_COLUMN_NAME
+            ]),
+            width=600
+        )
         st.divider()
         st.subheader(
             f"HSK3.0 and HSK2.0 unique vocabulary words ({len(
                 hsk_word_differences_df)} words)"
         )
-        st.dataframe(hsk_word_differences_df.set_index(
-            LEVEL_COLUMN_NAME), width=600)
+        st.dataframe(
+            hsk_word_differences_df.set_index([
+                pd.Index(
+                    [i+1 for i in range(len(hsk_word_differences_df))],
+                    name="Index",
+                ),
+                LEVEL_COLUMN_NAME
+            ]),
+            width=600
+        )
         st.subheader(
             f"HSK3.0 and HSK2.0 unique hanzi list ({len(
                 hsk_hanzi_differences_df)} hanzi)"
         )
-        st.dataframe(hsk_hanzi_differences_df.set_index(
-            LEVEL_COLUMN_NAME), width=600)
+        st.dataframe(
+            hsk_hanzi_differences_df.set_index([
+                pd.Index(
+                    [i+1 for i in range(len(hsk_hanzi_differences_df))],
+                    name="Index",
+                ),
+                LEVEL_COLUMN_NAME
+            ]),
+            width=600
+        )
