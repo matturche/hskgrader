@@ -393,6 +393,52 @@ if __name__ == "__main__":
             ),
             with_hsk7=False,
         )
+        st.divider()
+        st.subheader("HSK2.0 unique hanzi by level")
+        draw_number_of_words_per_hsk_level(
+            hsk20_unique_hanzi_df,
+            with_hsk7=False,
+        )
+        st.divider()
+        st.subheader("HSK3.0 unique hanzi by level")
+        draw_number_of_words_per_hsk_level(
+            hsk30_unique_hanzi_df,
+            with_hsk7=False,
+        )
+        st.subheader("Reflections on unique hanzi in HSK")
+        st.markdown(
+            """
+            One of the biggest issue with HSK2.0 is that in early levels,
+            despite a low word count, it introduced many hanzi. This is
+            especially visible on HSK1 where 174 unique hanzi are
+            introduced for only 150 words! This is very detrimental for
+            a learner's understanding on how hanzi, and the Chinese
+            writing system actually works. And as levels increase, more
+            and more are introduced.
+
+            This is something that the team behind the HSK must have
+            acknowledged, because as we can see the distribution of new
+            hanzi is completely different in HSK3.0. Every band until the
+            last introduces exactly 300 unique hanzi and uses them to build
+            its vocabulary bulk. This is a very good improvement, as it means
+            learners can leverage more vocabulary using less hanzi: three times
+            over the number of hanzi they have to learn at HSK5.
+
+            However, this has for effect that while learners from HSK2.0 and
+            HSK3.0 roughly have around the same number of hanzi at their
+            disposal at HSK5, it is completely different at HSK6. HSK2.0 and
+            HSK3.0 have a difference of more than 860 hanzi, in favor of
+            HSK2.0. This difference accounts for the straight removal of 414
+            words from HSK3.0 in HSK6 and the displacement of 1600 entries
+            from inferior levels to HSK7-9.
+
+            From a pure word count point of view, it would seem that while
+            HSK2.0 and HSK3.0 HSK6 levels get you to the same amount of
+            vocabulary, but when looking at individual hanzi introduced, it
+            seems that HSK2.0's HSK6 band is much more advanced than its HSK3.0
+            counterpart.
+            """
+        )
     with vocab_lists_tab:
         st.subheader("HSK2.0 vocabulary")
         st.dataframe(hsk20_only_df.set_index(LEVEL_COLUMN_NAME), width=600)
