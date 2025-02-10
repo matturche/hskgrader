@@ -1,0 +1,486 @@
+# TRANSLATION FILE FOR HSKGRADER.
+# Copyright (C) 2025 matturche
+# This file is distributed under the same license as hskgrader.
+# FIRST AUTHOR <matturche>, Feb 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-10 10:45+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: matturche <matth.more@lilo.org>\n"
+"Language-Team: matturche\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: hskgrader/main.py:51
+msgid "WELCOME TO HSK GRADER :snake:"
+msgstr ""
+
+#: hskgrader/main.py:53
+msgid "What is it?"
+msgstr ""
+
+#: hskgrader/main.py:54
+msgid ""
+"\n"
+"    It is a small app to analyze Chinese texts using the **Hànyǔ Shuǐpǐng\n"
+"    Kǎoshì (HSK)** dictionnary entries.\n"
+"\n"
+"    :red[*Note that the author(s) of this tool are not affiliated in any "
+"way\n"
+"    with the Hanban/Confucius Institute Headquarters, responsible for all\n"
+"    things related to the HSK.*]\n"
+"        "
+msgstr ""
+
+#: hskgrader/main.py:62
+msgid "Who is it for?"
+msgstr ""
+
+#: hskgrader/main.py:63
+msgid ""
+"\n"
+"    For teachers who want to evaluate the difficulty of a text that they "
+"want\n"
+"    to give to their students, or for\n"
+"    learners who want to start reading real world texts but are unsure if "
+"they\n"
+"    are up to the task.\n"
+"        "
+msgstr ""
+
+#: hskgrader/main.py:71
+msgid "Learn more"
+msgstr ""
+
+#: hskgrader/main.py:72
+msgid ""
+"\n"
+"    The test is divided into 6 main levels (or bands), with the recent "
+"addition\n"
+"    of the 7 to 9th levels, in a single block. Each level reflects what is\n"
+"    expected from a learner's abilities in Chinese, and they also serve as\n"
+"    frameworks for learners when they study Chinese. Thus, knowing what is "
+"the\n"
+"    expected HSK content in a text can be a good indicator when wanting to "
+"read\n"
+"    a text.\n"
+"\n"
+"    However, there existed no tool to my knowledge which allowed to analyse "
+"the\n"
+"    content of a text and map it to an existing HSK level, which poses "
+"problem\n"
+"    as a learner might want to know whether a text is accessible to them "
+"right\n"
+"    now, if they will need a lot of effort to understand it, or if it's "
+"going\n"
+"    to be an easy read.\n"
+"\n"
+"    Most textbooks provide texts with a readability of around 80% (the "
+"number\n"
+"    of words a learner knows), which generally makes the text challenging "
+"and\n"
+"    require the learner's focus, and is pretty exhausting, having to check\n"
+"    definitions at almost every sentences. On the other hand, a good text "
+"for\n"
+"    extensive reading will sit at around 98% of known words, allowing the\n"
+"    learner to guess from context the new words that get introduced, and is\n"
+"    generally better for assimilating grammar structures, as you don't have "
+"to\n"
+"    stop to check a dictionnary all the time.\n"
+"\n"
+"    If you want to get a feeling of what it's like to read something at a "
+"given\n"
+"    readability percentage, I recommend this\n"
+"    [article](https://www.hackingchinese.com/introduction-extensive-reading-"
+"chinese-learners/).\n"
+"    The main takeway is that 80% readability does not necessarily translate "
+"to\n"
+"    80% comprehension, sometimes, it can even be closer to 0.\n"
+"        "
+msgstr ""
+
+#: hskgrader/main.py:104
+msgid "Text analysis"
+msgstr ""
+
+#: hskgrader/main.py:105
+msgid "How to interpret results"
+msgstr ""
+
+#: hskgrader/main.py:106
+msgid "HSK stats"
+msgstr ""
+
+#: hskgrader/main.py:107
+msgid "Vocabulary lists"
+msgstr ""
+
+#: hskgrader/main.py:154
+msgid "You can pick a sample text to analyze"
+msgstr ""
+
+#: hskgrader/main.py:157
+msgid "No text selected"
+msgstr ""
+
+#: hskgrader/main.py:158
+msgid ""
+"\n"
+"            All texts are from HSK2.0 **mock tests** or from the **Standard\n"
+"            Course Workbooks** (edited by the Hanban)\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:178
+msgid "Text to analyze:"
+msgstr ""
+
+#: hskgrader/main.py:180
+msgid "Write your text here, ex: 我是法国人。"
+msgstr ""
+
+#: hskgrader/main.py:182
+msgid "The textbox can be resized on the bottom right corner."
+msgstr ""
+
+#: hskgrader/main.py:185
+msgid "Use sub-words combinations in case matching fails"
+msgstr ""
+
+#: hskgrader/main.py:187
+msgid ""
+"\n"
+"            e.g. given a word ABCD, it is broken down into: [ABC, AB, A, "
+"BCD,\n"
+"            BC, B, CD, C, D], and we match against all of them, the final "
+"score\n"
+"            corresponds to the maximum level found.\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:194
+msgid "Use custom expansion dictionary"
+msgstr ""
+
+#: hskgrader/main.py:196
+msgid ""
+"\n"
+"            Words that are not included in the HSK2.0 list but have been "
+"added\n"
+"            because they are merely extansions of other words already "
+"learned.\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:223
+msgid "Readability"
+msgstr ""
+
+#: hskgrader/main.py:224
+msgid "Annotated text"
+msgstr ""
+
+#: hskgrader/main.py:225
+msgid "Word counts"
+msgstr ""
+
+#: hskgrader/main.py:239
+msgid "HSK2.0 annotated text"
+msgstr ""
+
+#: hskgrader/main.py:240
+msgid "HSK3.0 annotated text"
+msgstr ""
+
+#: hskgrader/main.py:241
+msgid "Both texts"
+msgstr ""
+
+#: hskgrader/main.py:249
+msgid "HSK2.0:"
+msgstr ""
+
+#: hskgrader/main.py:251
+msgid "HSK3.0:"
+msgstr ""
+
+#: hskgrader/main.py:255
+#, python-brace-format
+msgid "HSK2.0 ({total_words} words)"
+msgstr ""
+
+#: hskgrader/main.py:260
+#, python-brace-format
+msgid "HSK3.0 ({total_words} words)"
+msgstr ""
+
+#: hskgrader/main.py:265
+msgid ""
+"\n"
+"                    Your text doesn't contain any hanzi, there is nothing "
+"to\n"
+"                    analyze.\n"
+"                    "
+msgstr ""
+
+#: hskgrader/main.py:271
+msgid "How to interpret readability?"
+msgstr ""
+
+#: hskgrader/main.py:273
+msgid ""
+"\n"
+"            HSK Grader's main objective is to give HSK levels at which a "
+"text\n"
+"            is most likely readable. When giving a HSK level for a given\n"
+"            readability threshold, it means that if you passed, or studied "
+"all\n"
+"            the vocabulary for this level, then you should be able to read "
+"the\n"
+"            text with this threshold.\n"
+"\n"
+"            For example, if the text is graded as having a readability of "
+"80%\n"
+"            at HSK5, you need to have mastered HSK5 content.\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:285
+msgid "What are 'intensive' and 'extensive' reading?"
+msgstr ""
+
+#: hskgrader/main.py:287
+#, python-format
+msgid ""
+"\n"
+"            Intensive reading sits at around 80% readability, and is "
+"generally\n"
+"            what you would expect from texts at a learner's level that they\n"
+"            would study in class. These texts are usually accompanied by a\n"
+"            vocabulary list so that learners can read the text without too "
+"much\n"
+"            trouble.\n"
+"\n"
+"            If a learner were to read a text like this outside of textbook, "
+"it\n"
+"            means they will probably be fine but will have to check every "
+"now\n"
+"            and then a dictionary and may find it exhausting after a short\n"
+"            period.\n"
+"\n"
+"            This is why extensive reading is recommended for leisure "
+"reading,\n"
+"            it sits at the right balance between known and unknown words. "
+"It\n"
+"            allows learners to be able to guess from context some words'\n"
+"            meaning without having to check a dictionary, although in "
+"Chinese\n"
+"            it is a little different, as when you don't recognize a hanzi "
+"you\n"
+"            still have to check it in a dictionary either way.\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:309
+#, python-format
+msgid ""
+"\n"
+"            The app is showing 80/95/98% readability at a level higher than "
+"I should be but I can still read the text fine, why?\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:315
+msgid ""
+"\n"
+"            Between theoretical readability and actual readability\n"
+"            exists a difference, specific to every individual. The grade\n"
+"            given here is conservative, because there might be some "
+"undetected\n"
+"            words, and it also takes HSK levels at face value. But in "
+"reality,\n"
+"            the vocabulary people learn is influenced by factors outside of\n"
+"            just HSK levels, including but not limited to: nationality, "
+"center\n"
+"            of interests, exposure to the language, specific needs...\n"
+"\n"
+"            Sometimes, a text might have few complicated words, but "
+"appearing\n"
+"            often, raising the difficulty of the text only on a surface "
+"level.\n"
+"\n"
+"            Thus the difference between 80%, 95% and 98% might be more "
+"blurry\n"
+"            if you are already familiar with the text's context, or have\n"
+"            already studied its topic previously.\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:334
+#, python-format
+msgid ""
+"\n"
+"            The app is showing 80/95/98% readability at HSK7-9 but the "
+"actual score is lower, why?\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:340
+msgid ""
+"\n"
+"            HSK7-9 is the default maximum rating for each thresholds, "
+"because\n"
+"            if you got to HSK7-9, then you should have no problem "
+"whatsoever\n"
+"            in reading most texts. We could say that most of them\n"
+"            have a readability of 100% at this level.\n"
+"\n"
+"            The reason as to why it is not true with the app grading is "
+"simply\n"
+"            because HSK entries are limited, and do not reflect completely "
+"the\n"
+"            actual number of words one can read when reaching given levels,\n"
+"            this is why HSK Grader is using a custom dictionnary. As it is\n"
+"            expanded, the accuracy of grading will improve.\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:361 hskgrader/main.py:482
+#, python-brace-format
+msgid "Custom vocabulary ({length} words)"
+msgstr ""
+
+#: hskgrader/main.py:365
+msgid "Reflections on word counts"
+msgstr ""
+
+#: hskgrader/main.py:367
+msgid ""
+"\n"
+"        As we can see, the main difference between HSK2.0 and HSK3.0 is the\n"
+"        number of words per level. The HSK2.0 doesn't catch up in "
+"vocabulary\n"
+"        bulk up until the 6th level, which used to be the highest level\n"
+"        available.\n"
+"\n"
+"        The main issue with each band of HSK2.0 was that from HSK2 onward, "
+"the\n"
+"        amount of vocabulary required doubled, marking huge spikes in later\n"
+"        levels. HSK3.0 seems to solve this issue, by leveling each band to\n"
+"        around 1000 vocabulary.\n"
+"\n"
+"        By looking at numbers alone, one could think that the addition of "
+"so\n"
+"        many words in early levels of HSK3.0 translates to a higher "
+"difficulty.\n"
+"        While this may be true for the very beginning, when looking at the\n"
+"        actual words introduced, one realise that they have added many "
+"variants\n"
+"        of words already present in HSK2.0, or extended them. This makes "
+"the\n"
+"        HSK3.0 a better dictionnary for raw entries, but the actual "
+"perceived\n"
+"        difficulty is most probably not as great as we think between the "
+"two\n"
+"        versions.\n"
+"\n"
+"        Another thing to notice, is that out of the 5657 introduced words\n"
+"        inside the HSK7-9 band, more than 1600 are already in use in "
+"HSK2.0.\n"
+"        "
+msgstr ""
+
+#: hskgrader/main.py:393
+msgid "Words introduced by HSK3.0 (without HSK7-9)"
+msgstr ""
+
+#: hskgrader/main.py:403
+msgid "HSK2.0 words removed from HSK3.0"
+msgstr ""
+
+#: hskgrader/main.py:413
+msgid "HSK2.0 unique hanzi by level"
+msgstr ""
+
+#: hskgrader/main.py:419
+msgid "HSK3.0 unique hanzi by level"
+msgstr ""
+
+#: hskgrader/main.py:424
+msgid "Reflections on unique hanzi in HSK"
+msgstr ""
+
+#: hskgrader/main.py:426
+msgid ""
+"\n"
+"            One of the biggest issue with HSK2.0 is that in early levels,\n"
+"            despite a low word count, it introduced many hanzi. This is\n"
+"            especially visible on HSK1 where 174 unique hanzi are\n"
+"            introduced for only 150 words! This is very detrimental for\n"
+"            a learner's understanding on how hanzi, and the Chinese\n"
+"            writing system actually works. And as levels increase, more\n"
+"            and more are introduced.\n"
+"\n"
+"            This is something that the team behind the HSK must have\n"
+"            acknowledged, because as we can see the distribution of new\n"
+"            hanzi is completely different in HSK3.0. Every band until the\n"
+"            last introduces exactly 300 unique hanzi and uses them to build\n"
+"            its vocabulary bulk. This is a very good improvement, as it "
+"means\n"
+"            learners can leverage more vocabulary using less hanzi: three "
+"times\n"
+"            over the number of hanzi they have to learn at HSK5.\n"
+"\n"
+"            However, this has for effect that while learners from HSK2.0 "
+"and\n"
+"            HSK3.0 roughly have around the same number of hanzi at their\n"
+"            disposal at HSK5, it is completely different at HSK6. HSK2.0 "
+"and\n"
+"            HSK3.0 have a difference of more than 860 hanzi, in favor of\n"
+"            HSK2.0. This difference accounts for the straight removal of "
+"414\n"
+"            words from HSK3.0 in HSK6 and the displacement of 1600 entries\n"
+"            from inferior levels to HSK7-9.\n"
+"\n"
+"            From a pure word count point of view, it would seem that while\n"
+"            HSK2.0 and HSK3.0 HSK6 levels get you to the same amount of\n"
+"            vocabulary, but when looking at individual hanzi introduced, it\n"
+"            seems that HSK2.0's HSK6 band is much more advanced than its "
+"HSK3.0\n"
+"            counterpart.\n"
+"            "
+msgstr ""
+
+#: hskgrader/main.py:460
+msgid "HSK2.0 vocabulary"
+msgstr ""
+
+#: hskgrader/main.py:471
+msgid "HSK3.0 vocabulary"
+msgstr ""
+
+#: hskgrader/main.py:495
+#, python-brace-format
+msgid "HSK2.0 unique hanzi list ({length} hanzi)"
+msgstr ""
+
+#: hskgrader/main.py:507
+#, python-brace-format
+msgid "HSK3.0 unique hanzi list ({length} hanzi)"
+msgstr ""
+
+#: hskgrader/main.py:521
+#, python-brace-format
+msgid "HSK3.0 and HSK2.0 unique vocabulary words ({length} words)"
+msgstr ""
+
+#: hskgrader/main.py:536
+#, python-brace-format
+msgid "HSK3.0 and HSK2.0 unique hanzi list ({length} hanzi)"
+msgstr ""

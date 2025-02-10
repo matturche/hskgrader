@@ -70,3 +70,27 @@ and the resulting complexity of the final word.
 
 Both of these methods are optional, using checkboxes in the app, you will quickly see, however, that when not using them it is very rare to go above
 70% readability, even with the addition of HSK7-9 for HSK2.0, even on texts made for HSK learners and edited by the Hanban.
+
+## How to generate translations
+
+Translations are genereated using the GETTEXT module.
+
+First a `.pot` file has to be created for all translations with the following command:
+
+```
+xgettext -d base -o locales/hskgrader.pot hskgrader/main.py
+```
+
+Take care to replace the `CHARSET` section in the file with `UTF-8`.
+
+Then, for each target language, a `.po` file has to be created, containing the content from the previously generated `.pot` file.
+
+Finally, a `.mo` file has to be generated for each target language by running the following command:
+
+```
+msgfmt -o locales/{lang}/LC_MESSAGES/hskgrader.mo locales/{lang}/LC_MESSAGES/hskgrader.po"
+```
+
+Replace `{lang}` with the desired language folder.
+
+An alternative can be to use a PO text editor like [Poedit](https://poedit.net/download) which will take care of the `.mo` conversion.

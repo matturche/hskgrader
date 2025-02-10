@@ -3,6 +3,7 @@ from annotated_text import annotated_text
 import pandas as pd
 from requests.compat import urljoin
 import argparse
+import gettext
 from typing import Dict
 
 from hsk_grader_statistics import HskGraderStatistics
@@ -38,31 +39,45 @@ if __name__ == "__main__":
         page_icon=":dragon_face:",
     )
 
-    st.title("WELCOME TO HSK GRADER :snake:")
+    # Set up Gettext
+    appname = 'hskgrader'
+    localedir = '.././locales' if args.local else './locales'
+    _, lang_col = st.columns(
+        [7, 1],
+    )
+    with lang_col:
+        language = st.selectbox(
+            "lang",
+            ["en", "fr"],
+            label_visibility="hidden",
+        )
+    translations = gettext.translation(
+        appname, localedir, fallback=True, languages=[language])
+    translations.install()
+    _ = translations.gettext
 
-    st.subheader("What is it?")
-    st.markdown(
-        """
+    st.title(_("WELCOME TO HSK GRADER :snake:"))
+
+    st.subheader(_("What is it?"))
+    st.markdown(_("""
     It is a small app to analyze Chinese texts using the **Hànyǔ Shuǐpǐng
     Kǎoshì (HSK)** dictionnary entries.\n
     :red[*Note that the author(s) of this tool are not affiliated in any way
     with the Hanban/Confucius Institute Headquarters, responsible for all
     things related to the HSK.*]
         """
-    )
-    st.subheader("Who is it for?")
-    st.markdown(
-        """
+                  ))
+    st.subheader(_("Who is it for?"))
+    st.markdown(_("""
     For teachers who want to evaluate the difficulty of a text that they want
     to give to their students, or for
     learners who want to start reading real world texts but are unsure if they
     are up to the task.
         """
-    )
+                  ))
 
-    expander = st.expander("Learn more")
-    expander.write(
-        """
+    expander = st.expander(_("Learn more"))
+    expander.write(_("""
     The test is divided into 6 main levels (or bands), with the recent addition
     of the 7 to 9th levels, in a single block. Each level reflects what is
     expected from a learner's abilities in Chinese, and they also serve as
@@ -91,13 +106,13 @@ if __name__ == "__main__":
     The main takeway is that 80% readability does not necessarily translate to
     80% comprehension, sometimes, it can even be closer to 0.
         """
-    )
+                     ))
 
     text_tab, interpet_tab, hsk_stats_tab, vocab_lists_tab = st.tabs([
-        "Text analysis",
-        "How to interpret results",
-        "HSK stats",
-        "Vocabulary lists",
+        _("Text analysis"),
+        _("How to interpret results"),
+        _("HSK stats"),
+        _("Vocabulary lists"),
     ])
     with text_tab:
         if args.local:
@@ -144,14 +159,14 @@ if __name__ == "__main__":
             )
 
         selected_text = st.selectbox(
-            "You can pick a sample text to analyze",
+            _("You can pick a sample text to analyze"),
             text_names,
             index=None,
-            placeholder="No text selected",
-            help="""
+            placeholder=_("No text selected"),
+            help=_("""
             All texts are from HSK2.0 **mock tests** or from the **Standard
             Course Workbooks** (edited by the Hanban)
-            """,
+            """),
         )
         selected_text = "" if selected_text is None else hsk_sample_texts[
             selected_text
@@ -168,28 +183,28 @@ if __name__ == "__main__":
         )
 
         txt = st.text_area(
-            "Text to analyze:",
+            _("Text to analyze:"),
             selected_text,
-            placeholder="Write your text here, ex: 我是法国人。",
+            placeholder=_("Write your text here, ex: 我是法国人。"),
             height=200,
-            help="The textbox can be resized on the bottom right corner.",
+            help=_("The textbox can be resized on the bottom right corner."),
         )
         use_word_sub_combinations = st.checkbox(
-            "Use sub-words combinations in case matching fails",
+            _("Use sub-words combinations in case matching fails"),
             value=True,
-            help="""
+            help=_("""
             e.g. given a word ABCD, it is broken down into: [ABC, AB, A, BCD,
             BC, B, CD, C, D], and we match against all of them, the final score
             corresponds to the maximum level found.
-            """,
+            """),
         )
         use_custom_epansion_dictionary = st.checkbox(
-            "Use custom expansion dictionary",
+            _("Use custom expansion dictionary"),
             value=True,
-            help="""
+            help=_("""
             Words that are not included in the HSK2.0 list but have been added
             because they are merely extansions of other words already learned.
-            """,
+            """),
         )
         chart_choice = True
         # Uncomment if desired
@@ -213,9 +228,9 @@ if __name__ == "__main__":
 
                 readability_tab, annot_tab, word_count_tab = st.tabs(
                     [
-                        "Readability",
-                        "Annotated text",
-                        "Word counts",
+                        _("Readability"),
+                        _("Annotated text"),
+                        _("Word counts"),
                     ]
                 )
 
@@ -229,9 +244,9 @@ if __name__ == "__main__":
                 with annot_tab:
                     hsk20_tab, hsk30_tab, both_tab = st.tabs(
                         [
-                            "HSK2.0 annotated text",
-                            "HSK3.0 annotated text",
-                            "Both texts",
+                            _("HSK2.0 annotated text"),
+                            _("HSK3.0 annotated text"),
+                            _("Both texts"),
                         ]
                     )
                     with hsk20_tab:
@@ -239,30 +254,31 @@ if __name__ == "__main__":
                     with hsk30_tab:
                         annotated_text(hsk30_statistics.annotated_text)
                     with both_tab:
-                        st.subheader("HSK2.0:")
+                        st.subheader(_("HSK2.0:"))
                         annotated_text(hsk20_statistics.annotated_text)
-                        st.subheader("HSK3.0:")
+                        st.subheader(_("HSK3.0:"))
                         annotated_text(hsk30_statistics.annotated_text)
                 with word_count_tab:
                     st.subheader(
-                        f"HSK2.0 ({hsk20_statistics.total_words} words)")
+                        _("HSK2.0 ({total_words} words)").format(
+                            total_words=hsk20_statistics.total_words))
                     hsk20_statistics.draw_word_counts_chart(
                         as_bars=chart_choice)
                     st.subheader(
-                        f"HSK3.0 ({hsk30_statistics.total_words} words)")
+                        _("HSK3.0 ({total_words} words)").format(
+                            total_words=hsk30_statistics.total_words))
                     hsk30_statistics.draw_word_counts_chart(
                         as_bars=chart_choice)
             else:
-                st.error(
-                    """
+                st.error(_("""
                     Your text doesn't contain any hanzi, there is nothing to
                     analyze.
                     """
-                )
+                           ))
     with interpet_tab:
-        st.subheader("How to interpret readability?")
+        st.subheader(_("How to interpret readability?"))
         st.markdown(
-            """
+            _("""
             HSK Grader's main objective is to give HSK levels at which a text
             is most likely readable. When giving a HSK level for a given
             readability threshold, it means that if you passed, or studied all
@@ -272,10 +288,11 @@ if __name__ == "__main__":
             For example, if the text is graded as having a readability of 80%
             at HSK5, you need to have mastered HSK5 content.
             """
+              )
         )
-        st.subheader("What are 'intensive' and 'extensive' reading?")
+        st.subheader(_("What are 'intensive' and 'extensive' reading?"))
         st.markdown(
-            """
+            _("""
             Intensive reading sits at around 80% readability, and is generally
             what you would expect from texts at a learner's level that they
             would study in class. These texts are usually accompanied by a
@@ -294,14 +311,16 @@ if __name__ == "__main__":
             it is a little different, as when you don't recognize a hanzi you
             still have to check it in a dictionary either way.
             """
+              )
         )
         st.subheader(
-            """
+            _("""
             The app is showing 80/95/98% readability at a level higher than I should be but I can still read the text fine, why?
             """
+              )
         )
         st.markdown(
-            """
+            _("""
             Between theoretical readability and actual readability
             exists a difference, specific to every individual. The grade
             given here is conservative, because there might be some undetected
@@ -317,14 +336,16 @@ if __name__ == "__main__":
             if you are already familiar with the text's context, or have
             already studied its topic previously.
             """
+              )
         )
         st.subheader(
-            """
+            _("""
             The app is showing 80/95/98% readability at HSK7-9 but the actual score is lower, why?
             """
+              )
         )
         st.markdown(
-            """
+            _("""
             HSK7-9 is the default maximum rating for each thresholds, because
             if you got to HSK7-9, then you should have no problem whatsoever
             in reading most texts. We could say that most of them
@@ -336,6 +357,7 @@ if __name__ == "__main__":
             this is why HSK Grader is using a custom dictionnary. As it is
             expanded, the accuracy of grading will improve.
             """
+              )
         )
     with hsk_stats_tab:
         st.subheader("HSK2.0")
@@ -344,12 +366,13 @@ if __name__ == "__main__":
         st.subheader("HSK3.0")
         draw_number_of_words_per_hsk_level(hsk30_only_df)
         st.divider()
-        st.subheader(f"Custom vocabulary ({len(hsk_extansion_df)} words)")
+        st.subheader(_("Custom vocabulary ({length} words)").format(
+            length=len(hsk_extansion_df)))
         draw_number_of_words_per_hsk_level(hsk_extansion_df, with_hsk7=False)
         st.divider()
-        st.subheader("Reflections on word counts")
+        st.subheader(_("Reflections on word counts"))
         st.write(
-            """
+            _("""
         As we can see, the main difference between HSK2.0 and HSK3.0 is the
         number of words per level. The HSK2.0 doesn't catch up in vocabulary
         bulk up until the 6th level, which used to be the highest level
@@ -372,9 +395,10 @@ if __name__ == "__main__":
         Another thing to notice, is that out of the 5657 introduced words
         inside the HSK7-9 band, more than 1600 are already in use in HSK2.0.
         """
+              )
         )
         st.divider()
-        st.subheader("Words introduced by HSK3.0 (without HSK7-9)")
+        st.subheader(_("Words introduced by HSK3.0 (without HSK7-9)"))
         draw_number_of_words_per_hsk_level(
             pd.DataFrame(
                 hsk_word_differences_df[
@@ -384,7 +408,7 @@ if __name__ == "__main__":
             with_hsk7=False,
         )
         st.divider()
-        st.subheader("HSK2.0 words removed from HSK3.0")
+        st.subheader(_("HSK2.0 words removed from HSK3.0"))
         draw_number_of_words_per_hsk_level(
             pd.DataFrame(
                 hsk_word_differences_df[
@@ -394,20 +418,20 @@ if __name__ == "__main__":
             with_hsk7=False,
         )
         st.divider()
-        st.subheader("HSK2.0 unique hanzi by level")
+        st.subheader(_("HSK2.0 unique hanzi by level"))
         draw_number_of_words_per_hsk_level(
             hsk20_unique_hanzi_df,
             with_hsk7=False,
         )
         st.divider()
-        st.subheader("HSK3.0 unique hanzi by level")
+        st.subheader(_("HSK3.0 unique hanzi by level"))
         draw_number_of_words_per_hsk_level(
             hsk30_unique_hanzi_df,
             with_hsk7=False,
         )
-        st.subheader("Reflections on unique hanzi in HSK")
+        st.subheader(_("Reflections on unique hanzi in HSK"))
         st.markdown(
-            """
+            _("""
             One of the biggest issue with HSK2.0 is that in early levels,
             despite a low word count, it introduced many hanzi. This is
             especially visible on HSK1 where 174 unique hanzi are
@@ -438,9 +462,10 @@ if __name__ == "__main__":
             seems that HSK2.0's HSK6 band is much more advanced than its HSK3.0
             counterpart.
             """
+              )
         )
     with vocab_lists_tab:
-        st.subheader("HSK2.0 vocabulary")
+        st.subheader(_("HSK2.0 vocabulary"))
         st.dataframe(
             hsk20_only_df.set_index([
                 pd.Index(
@@ -451,7 +476,7 @@ if __name__ == "__main__":
             ]),
             width=600,
         )
-        st.subheader("HSK3.0 vocabulary")
+        st.subheader(_("HSK3.0 vocabulary"))
         st.dataframe(
             hsk30_only_df.set_index([
                 pd.Index(
@@ -462,7 +487,8 @@ if __name__ == "__main__":
             ]),
             width=600
         )
-        st.subheader(f"Custom vocabulary ({len(hsk_extansion_df)} words)")
+        st.subheader(_("Custom vocabulary ({length} words)").format(
+            length=len(hsk_extansion_df)))
         st.dataframe(
             hsk_extansion_df.set_index([
                 pd.Index(
@@ -474,8 +500,8 @@ if __name__ == "__main__":
             width=600
         )
         st.divider()
-        st.subheader(f"HSK2.0 unique hanzi list ({
-                     len(hsk20_unique_hanzi_df)} hanzi)")
+        st.subheader(_("HSK2.0 unique hanzi list ({length} hanzi)").format(
+            length=len(hsk20_unique_hanzi_df)))
         st.dataframe(
             hsk20_unique_hanzi_df.set_index([
                 pd.Index(
@@ -486,8 +512,8 @@ if __name__ == "__main__":
             ]),
             width=600
         )
-        st.subheader(f"HSK3.0 unique hanzi list ({
-                     len(hsk30_unique_hanzi_df)} hanzi)")
+        st.subheader(_("HSK3.0 unique hanzi list ({length} hanzi)").format(
+            length=len(hsk30_unique_hanzi_df)))
         st.dataframe(
             hsk30_unique_hanzi_df.set_index([
                 pd.Index(
@@ -500,8 +526,9 @@ if __name__ == "__main__":
         )
         st.divider()
         st.subheader(
-            f"HSK3.0 and HSK2.0 unique vocabulary words ({len(
-                hsk_word_differences_df)} words)"
+            _("HSK3.0 and HSK2.0 unique vocabulary words ({length} words)")
+            .format(
+                length=len(hsk_word_differences_df))
         )
         st.dataframe(
             hsk_word_differences_df.set_index([
@@ -514,8 +541,9 @@ if __name__ == "__main__":
             width=600
         )
         st.subheader(
-            f"HSK3.0 and HSK2.0 unique hanzi list ({len(
-                hsk_hanzi_differences_df)} hanzi)"
+            _("HSK3.0 and HSK2.0 unique hanzi list ({length} hanzi)")
+            .format(
+                length=len(hsk_hanzi_differences_df))
         )
         st.dataframe(
             hsk_hanzi_differences_df.set_index([
